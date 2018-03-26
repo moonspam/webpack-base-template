@@ -106,8 +106,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../../node_modules/css-loader/index.js!./sample.css", function() {
-			var newContent = require("!!../../../node_modules/css-loader/index.js!./sample.css");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/lib/loader.js!./sample.scss", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/lib/loader.js!./sample.scss");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -146,7 +146,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "body {\n    background-color: #ddd;\n    font-size: 14px\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\nbody {\n  background-color: #ddd;\n  font: 14px \"\\B098\\B214\\ACE0\\B515\", \"Nanum Gothic\", sans-serif; }\n", ""]);
 
 // exports
 
