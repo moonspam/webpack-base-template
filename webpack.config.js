@@ -56,6 +56,18 @@ const config = {
     new ExtractTextPlugin('./css/styles.css'),
     new FaviconsWebpackPlugin({
       logo: './img/favicon.png',
+      icons: {
+        android: true,
+        appleIcon: true,
+        appleStartup: false,
+        coast: false,
+        favicons: true,
+        firefox: false,
+        opengraph: false,
+        twitter: false,
+        yandex: false,
+        windows: false,
+      },
     }),
     new HtmlWebpackPlugin({
       template: './index.html',
