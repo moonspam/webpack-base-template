@@ -14,7 +14,7 @@ const config = {
     app: './js/index.js',
   },
   output: {
-    filename: 'bundle.js',
+    filename: './js/bundle.js',
     path: path.resolve(__dirname, distPath),
   },
   devServer: {
@@ -40,13 +40,7 @@ const config = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: [[
-            'env', {
-              targets: {
-                browsers: ['last 2 versions', 'safari >= 7'],
-              },
-            },
-          ]],
+          presets: ['babel-preset-env'],
         },
       },
     ],
@@ -65,6 +59,10 @@ const config = {
       compress: {
         warnings: false,
       },
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
     }),
   ],
 };

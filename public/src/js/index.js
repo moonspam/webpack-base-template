@@ -1,5 +1,6 @@
-import hello from './hello';
-import world from './world';
+import $ from 'jquery';
 import '../css/sample.scss';
 
-document.write(`${hello}, ${world}!`);
+$(document).ready(() => {
+  console.log('hello world');
+});
