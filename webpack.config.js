@@ -1,25 +1,29 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const srcPath = './public/src/';
-const distPath = './public/dist/';
+const sourcePath = './public/src/';
+const outputPath = './public/dist/';
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-  context: path.resolve(__dirname, srcPath),
+  context: path.resolve(__dirname, sourcePath),
   entry: {
     app: './js/index.js',
   },
   output: {
     filename: './js/bundle.js',
-    path: path.resolve(__dirname, distPath),
+    path: path.resolve(__dirname, outputPath),
   },
   devServer: {
-    contentBase: './dist/',
+    contentBase: path.resolve(__dirname, sourcePath),
+    watchContentBase: true,
+    inline: true,
+    hot: true,
   },
+  devtool: process.env.NODE_ENV === 'development' ? 'source-map' : false,
   module: {
     rules: [
       {
@@ -46,7 +50,7 @@ const config = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin([distPath]),
+    new CleanWebpackPlugin([outputPath]),
     new ExtractTextPlugin('./css/styles.css'),
     new HtmlWebpackPlugin({
       template: './index.html',
