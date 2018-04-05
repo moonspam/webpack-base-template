@@ -1,22 +1,33 @@
-const webpack = require('webpack'); // to access built-in plugins
 const path = require('path');
+const webpack = require('webpack');
+
+const srcPath = './public/src/';
+const distPath = './public/dist/';
+
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-  entry: `${__dirname}/public/src/index.js`,
+  context: path.resolve(__dirname, srcPath),
+  entry: {
+    app: './js/index.js',
+  },
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, 'public', 'dist'),
+    path: path.resolve(__dirname, distPath),
   },
   devServer: {
-    inline: true,
-    contentBase: path.join(__dirname, 'public', 'dist'),
-    port: 7777,
+    contentBase: './dist/',
   },
   module: {
     rules: [
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader'],
+        }),
       },
       {
         enforce: 'pre',
@@ -32,9 +43,8 @@ const config = {
           presets: [[
             'env', {
               targets: {
-                browsers: ['last 2 versions'],
+                browsers: ['last 2 versions', 'safari >= 7'],
               },
-              module: false, // Bundling 결과로부터 사용되지 않은 코드를 삭제하여 파일 크기 경량화
             },
           ]],
         },
@@ -42,7 +52,20 @@ const config = {
     ],
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
+    new CleanWebpackPlugin([distPath]),
+    new ExtractTextPlugin('./css/styles.css'),
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      hash: true,
+      inject: 'body',
+      chunks: ['app'],
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+    }),
   ],
 };
 
