@@ -2,6 +2,11 @@ $gray: #ddd;
 $base-font: "나눔고딕", "Nanum Gothic", sans-serif;
 
 body {
-  background-color: $gray;
+  background: url(../img/bg.jpg) no-repeat center 0;
+  background-size: cover;
   font: 14px $base-font;
+}
+
+.test {
+  text-align: center;
 }

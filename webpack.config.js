@@ -20,10 +20,10 @@ const config = {
     path: path.resolve(__dirname, outputPath),
   },
   devServer: {
-    contentBase: path.resolve(__dirname, sourcePath),
+    open: true,
+    contentBase: path.resolve(__dirname, outputPath),
     watchContentBase: true,
     inline: true,
-    hot: true,
   },
   devtool: process.env.NODE_ENV === 'development' ? 'source-map' : false,
   module: {
@@ -34,6 +34,21 @@ const config = {
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader'],
         }),
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/,
+        exclude: /node_modules/,
+        loader: 'file-loader',
+        options: {
+          name: () => {
+            if (process.env.NODE_ENV === 'development') {
+              return '[path][name].[ext]';
+            }
+            return '[hash].[ext]';
+          },
+          publicPath: '../img/',
+          outputPath: './img/',
+        },
       },
       {
         enforce: 'pre',
@@ -56,17 +71,16 @@ const config = {
     new ExtractTextPlugin('./css/styles.css'),
     new FaviconsWebpackPlugin({
       logo: './img/favicon.png',
+      emitStats: false,
       icons: {
-        android: true,
+        android: false,
         appleIcon: true,
         appleStartup: false,
         coast: false,
         favicons: true,
         firefox: false,
-        opengraph: false,
-        twitter: false,
-        yandex: false,
         windows: false,
+        yandex: false,
       },
     }),
     new HtmlWebpackPlugin({
@@ -86,7 +100,6 @@ const config = {
       },
       replace: [' type="text/javascript"'],
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,

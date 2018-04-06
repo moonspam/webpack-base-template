@@ -22,12 +22,14 @@
     "eslint-plugin-import": "^2.2.0",
     "extract-text-webpack-plugin": "^2.1.2",
     "favicons-webpack-plugin": "0.0.9",
+    "file-loader": "^1.1.11",
     "html-beautify-webpack-plugin": "^1.0.4",
+    "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.16.1",
-    "webpack": "^2.4.1",
+    "webpack": "^3.0.0",
     "webpack-dev-server": "^2.4.4"
   },
   "dependencies": {

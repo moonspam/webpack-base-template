@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="ko">
+${require('html-loader!./_template/header.html')}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Webpack Base Template</title>
-</head>
+  <p class="test"><img src="${require('./img/cat.jpg')}" alt="Cat" width="300" height="300"></p>
+  <h1 class="test">Title</h1>
+  <p class="test">Paragraph</p>
 
-<body>
-  <h1>Title</h1>
-  <p>Paragraph</p>
-</body>
-
-</html>
+${require('html-loader!./_template/footer.html')}
