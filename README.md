@@ -1,2 +1,16 @@
 # webpack base template
-webpack.js 기본 설정
+webpack.js 기본 템플릿입니다.  
+Demo: https://cdn.rawgit.com/moonspam/webpack-base-template/master/public/dist/index.html
+
+## Packages
+- Babel Loader
+- Clean for Webpack
+- ESLint Loader
+- Extract Text Plugin
+- Favicons Webpack Plugin
+- File Loader
+- HTML Beautify Webpack Plugin
+- HTML Loader
+- HTML Webpack Plugin
+- SASS Loader
+- Webpack
