@@ -1,8 +1,10 @@
-@charset "UTF-8";
-body {
-  background: url(../img/c6944d7b4f16818177e03599b1c9fc3f.jpg) no-repeat center 0;
+@import url(https://fonts.googleapis.com/css?family=Poor+Story);body.sample {
+  background: #847f7b url(../img/c6944d7b4f16818177e03599b1c9fc3f.jpg) no-repeat center 0;
   background-size: cover;
-  font: 14px "\B098\B214\ACE0\B515", "Nanum Gothic", sans-serif; }
-
-.test {
-  text-align: center; }
+  text-align: center;
+  font: 14px/1.5em "Poor Story", cursive;
+  text-shadow: 1px 1px 0 #fff; }
+  body.sample h1 {
+    font-size: 3em; }
+  body.sample p {
+    font-size: 2em; }

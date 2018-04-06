@@ -1,7 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="">
+  <meta property="og:title" content="Webpack Base Template">
+  <meta property="og:description" content="">
+  <title>Webpack Base Template</title>
+</head>
+
+<body class="sample">
+
 ${require('html-loader!./_template/header.html')}
 
-  <p class="test"><img src="${require('./img/cat.jpg')}" alt="Cat" width="300" height="300"></p>
-  <h1 class="test">Title</h1>
-  <p class="test">Paragraph</p>
+  <p><img src="${require('./img/cat.jpg')}" alt="Cat" width="300" height="300"></p>
+  <h1>한글은 사랑입니다.</h1>
+  <p>웹팩 기본 틀 👍</p>
 
 ${require('html-loader!./_template/footer.html')}
+
+</body>
+
+</html>
