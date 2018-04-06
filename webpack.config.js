@@ -46,7 +46,7 @@ const config = {
             }
             return '[hash].[ext]';
           },
-          publicPath: '../img/',
+          publicPath: './img/',
           outputPath: './img/',
         },
       },
