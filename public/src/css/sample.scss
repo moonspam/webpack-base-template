@@ -1,8 +1,9 @@
 $gray: #ddd;
 $base-font: "나눔고딕", "Nanum Gothic", sans-serif;
+$img: '../img';
 
 body {
-  background: url(../img/bg.jpg) no-repeat center 0;
+  background: url('#{$img}/bg.jpg') no-repeat center 0;
   background-size: cover;
   font: 14px $base-font;
 }

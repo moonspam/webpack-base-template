@@ -33,6 +33,7 @@ const config = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader'],
+          publicPath: '../',
         }),
       },
       {
@@ -46,7 +47,6 @@ const config = {
             }
             return '[hash].[ext]';
           },
-          publicPath: './img/',
           outputPath: './img/',
         },
       },
