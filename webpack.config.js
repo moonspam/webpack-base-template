@@ -20,10 +20,10 @@ const siteInfo = {
     url: 'https://rawgit.com/moonspam/webpack-base-template/master/public/dist/index.html',
     type: 'website',
     img: {
-      url: 'https://raw.githubusercontent.com/moonspam/webpack-base-template/master/public/dist/img/1f5f8741044e3f822654574b09517314.jpg',
+      url: 'https://raw.githubusercontent.com/moonspam/webpack-base-template/master/public/dist/',
       type: 'image/jpeg',
-      width: '500',
-      height: '500',
+      width: '1280',
+      height: '720',
       alt: 'alternate text',
     },
   },
