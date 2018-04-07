@@ -1,6 +1,6 @@
 # webpack base template
 webpack.js 기본 템플릿입니다.  
-Demo: https://cdn.rawgit.com/moonspam/webpack-base-template/master/public/dist/index.html
+Demo: https://rawgit.com/moonspam/webpack-base-template/master/public/dist/index.html
 
 ## Packages
 - Babel Loader
@@ -14,3 +14,4 @@ Demo: https://cdn.rawgit.com/moonspam/webpack-base-template/master/public/dist/i
 - HTML Webpack Plugin
 - SASS Loader
 - Webpack
+- Webpack Dev Server

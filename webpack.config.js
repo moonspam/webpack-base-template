@@ -10,6 +10,25 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 
+const siteInfo = {
+  author: 'moonspam',
+  title: 'Webpack Base Template',
+  description: 'This is Webpack Base Template',
+  keywords: 'Webpack,Template,HTML,Sass',
+  og: {
+    locale: 'ko_KR',
+    url: 'https://rawgit.com/moonspam/webpack-base-template/master/public/dist/index.html',
+    type: 'website',
+    img: {
+      url: 'https://raw.githubusercontent.com/moonspam/webpack-base-template/master/public/dist/img/1f5f8741044e3f822654574b09517314.jpg',
+      type: 'image/jpeg',
+      width: '500',
+      height: '500',
+      alt: 'alternate text',
+    },
+  },
+};
+
 const config = {
   context: path.resolve(__dirname, sourcePath),
   entry: {
@@ -31,8 +50,15 @@ const config = {
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
+          use: [{
+            loader: 'css-loader',
+            options: {
+              minimize: true,
+            },
+          }, {
+            loader: 'sass-loader',
+          }],
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader'],
           publicPath: '../',
         }),
       },
@@ -98,7 +124,20 @@ const config = {
           unformatted: ['p', 'i', 'b', 'span'],
         },
       },
-      replace: [' type="text/javascript"'],
+      replace: [
+        { test: '@@_title', with: siteInfo.title },
+        { test: '@@_description', with: siteInfo.description },
+        { test: '@@_keywords', with: siteInfo.description },
+        { test: '@@_author', with: siteInfo.author },
+        { test: '@@_og_locale', with: siteInfo.og.locale },
+        { test: '@@_og_url', with: siteInfo.og.url },
+        { test: '@@_og_type', with: siteInfo.og.type },
+        { test: '@@_og_img_url', with: siteInfo.og.img.url },
+        { test: '@@_og_img_type', with: siteInfo.og.img.type },
+        { test: '@@_og_img_width', with: siteInfo.og.img.width },
+        { test: '@@_og_img_height', with: siteInfo.og.img.height },
+        { test: '@@_og_img_alt', with: siteInfo.og.img.alt },
+      ],
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
