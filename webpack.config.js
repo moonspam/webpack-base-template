@@ -10,8 +10,8 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 
+// 사이트 기본 정보 입력
 const siteInfo = {
-  // Insert here
   author: 'moonspam',
   title: 'Webpack Base Template',
   description: 'This is Webpack Base Template',
@@ -28,7 +28,79 @@ const siteInfo = {
       alt: 'alternate text',
     },
   },
+  html: [
+    'index',
+    'sub',
+  ],
 };
+
+// Webpack 플러그인
+const plugins = [
+  new CleanWebpackPlugin([outputPath]),
+  new ExtractTextPlugin('./css/styles.css'),
+  new FaviconsWebpackPlugin({
+    logo: './img/favicon.png',
+    emitStats: false,
+    icons: {
+      android: false,
+      appleIcon: true,
+      appleStartup: false,
+      coast: false,
+      favicons: true,
+      firefox: false,
+      windows: false,
+      yandex: false,
+    },
+  }),
+  new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false,
+    },
+  }),
+  new webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+  }),
+];
+
+// siteInfo.html 값의 개수에 따라 HtmlWebpackPlugin 생성
+const htmlList = siteInfo.html.map(file => (
+  new HtmlWebpackPlugin({
+    template: `./${file}.html`,
+    filename: `${file}.html`,
+    hash: true,
+    inject: 'body',
+    chunks: ['app'],
+  })
+));
+
+// HtmlWebpackPlugin 확장 플러그인
+const htmlPlugins = [
+  new HtmlBeautifyPlugin({
+    config: {
+      html: {
+        indent_size: 2,
+        end_with_newline: true,
+        preserve_newlines: true,
+        unformatted: ['p', 'i', 'b', 'span'],
+      },
+    },
+    replace: [
+      { test: '@@_title', with: siteInfo.title },
+      { test: '@@_description', with: siteInfo.description },
+      { test: '@@_keywords', with: siteInfo.description },
+      { test: '@@_author', with: siteInfo.author },
+      { test: '@@_og_locale', with: siteInfo.og.locale },
+      { test: '@@_og_url', with: siteInfo.og.url },
+      { test: '@@_og_type', with: siteInfo.og.type },
+      { test: '@@_og_img_url', with: siteInfo.og.img.url },
+      { test: '@@_og_img_type', with: siteInfo.og.img.type },
+      { test: '@@_og_img_width', with: siteInfo.og.img.width },
+      { test: '@@_og_img_height', with: siteInfo.og.img.height },
+      { test: '@@_og_img_alt', with: siteInfo.og.img.alt },
+    ],
+  }),
+];
 
 const config = {
   context: path.resolve(__dirname, sourcePath),
@@ -93,63 +165,7 @@ const config = {
       },
     ],
   },
-  plugins: [
-    new CleanWebpackPlugin([outputPath]),
-    new ExtractTextPlugin('./css/styles.css'),
-    new FaviconsWebpackPlugin({
-      logo: './img/favicon.png',
-      emitStats: false,
-      icons: {
-        android: false,
-        appleIcon: true,
-        appleStartup: false,
-        coast: false,
-        favicons: true,
-        firefox: false,
-        windows: false,
-        yandex: false,
-      },
-    }),
-    new HtmlWebpackPlugin({
-      template: './index.html',
-      hash: true,
-      inject: 'body',
-      chunks: ['app'],
-    }),
-    new HtmlBeautifyPlugin({
-      config: {
-        html: {
-          indent_size: 2,
-          end_with_newline: true,
-          preserve_newlines: true,
-          unformatted: ['p', 'i', 'b', 'span'],
-        },
-      },
-      replace: [
-        { test: '@@_title', with: siteInfo.title },
-        { test: '@@_description', with: siteInfo.description },
-        { test: '@@_keywords', with: siteInfo.description },
-        { test: '@@_author', with: siteInfo.author },
-        { test: '@@_og_locale', with: siteInfo.og.locale },
-        { test: '@@_og_url', with: siteInfo.og.url },
-        { test: '@@_og_type', with: siteInfo.og.type },
-        { test: '@@_og_img_url', with: siteInfo.og.img.url },
-        { test: '@@_og_img_type', with: siteInfo.og.img.type },
-        { test: '@@_og_img_width', with: siteInfo.og.img.width },
-        { test: '@@_og_img_height', with: siteInfo.og.img.height },
-        { test: '@@_og_img_alt', with: siteInfo.og.img.alt },
-      ],
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-    }),
-    new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-    }),
-  ],
+  plugins: plugins.concat(htmlList).concat(htmlPlugins),
 };
 
 module.exports = config;

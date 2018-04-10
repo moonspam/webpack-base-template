@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   ${require('html-loader?interpolate!./_template/share.html')}
-  <title>@@_title | Main</title>
+  <title>@@_title | Sub</title>
 </head>
 
 <body class="sample">
@@ -14,8 +14,8 @@
   ${require('html-loader?interpolate!./_template/header.html')}
 
   <h1>한글은 사랑입니다.</h1>
-  <p>웹팩 기본 틀 👍<br><a href="sub.html">서브페이지</a></p>
-
+  <p>웹팩 기본 틀 👍<br><a href="index.html">메인페이지</a></p>
+  
   ${require('html-loader?interpolate!./_template/footer.html')}
 
 </body>
