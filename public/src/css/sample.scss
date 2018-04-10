@@ -21,6 +21,9 @@ html, body {
       text-align: center;
       font: 14px/1.5em $base-font;
       text-shadow: 1px 1px 0 #fff;
+      header {
+        padding-top: 20px;
+      }
       h1 {
         font-size: 3em;
         line-height: 1.5em;

@@ -11,6 +11,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 
 const siteInfo = {
+  // Insert here
   author: 'moonspam',
   title: 'Webpack Base Template',
   description: 'This is Webpack Base Template',
@@ -35,7 +36,7 @@ const config = {
     app: './js/index.js',
   },
   output: {
-    filename: './js/bundle.js',
+    filename: './js/[name].bundle.js',
     path: path.resolve(__dirname, outputPath),
   },
   devServer: {
