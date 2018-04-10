@@ -15,14 +15,13 @@ html, body {
       $gray: #ddd;
       $base-font: 'Poor Story', cursive;
       $img: '../img';
-
       background: #e7e7e9 url('#{$img}/bg.jpg') no-repeat center 0;
       background-size: cover;
       text-align: center;
       font: 14px/1.5em $base-font;
       text-shadow: 1px 1px 0 #fff;
       header {
-        padding-top: 20px;
+        padding: 20px 0;
       }
       h1 {
         font-size: 3em;
@@ -31,6 +30,12 @@ html, body {
       p {
         font-size: 2em;
         line-height: 1.5em;
+        small {
+          font-size: 0.5em;
+        }
+      }
+      a {
+        color: gray;
       }
     }
   }
