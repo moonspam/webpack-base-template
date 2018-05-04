@@ -5,13 +5,13 @@
   "main": "bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --env.NODE.ENV=\"production\"",
-    "start": "webpack-dev-server --env.NODE.ENV=\"development\""
+    "build": "webpack --env.NODE_ENV=production",
+    "start": "webpack-dev-server --env.NODE_ENV=development"
   },
   "author": "moonspam <booboo0412@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.24.1",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.6.1",
     "clean-webpack-plugin": "^0.1.19",
@@ -19,14 +19,14 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.1.3",
     "eslint-loader": "^1.7.1",
-    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-import": "^2.11.0",
     "extract-text-webpack-plugin": "^2.1.2",
     "favicons-webpack-plugin": "0.0.9",
     "file-loader": "^1.1.11",
     "html-beautify-webpack-plugin": "^1.0.4",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.9.0",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.16.1",
     "webpack": "^3.11.0",
