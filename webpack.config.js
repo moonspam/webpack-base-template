@@ -6,6 +6,7 @@ const sourcePath = './public/src/';
 const outputPath = './public/dist/';
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -40,6 +41,9 @@ function generateHtmlPlugins(templateDir) {
   return templateFiles.map(file => new HtmlWebpackPlugin({
     template: `./${file}`,
     filename: `${file}`,
+    minify: {
+      removeAttributeQuotes: false,
+    },
     hash: true,
     inject: 'body',
     chunks: ['app'],
@@ -50,6 +54,12 @@ module.exports = (env) => {
   // Webpack 플러그인
   const plugins = [
     new CleanWebpackPlugin([outputPath]),
+    new CopyWebpackPlugin([
+      {
+        from: './libs/**/*',
+        force: true,
+      },
+    ]),
     new ExtractTextPlugin('./css/styles.css'),
     new FaviconsWebpackPlugin({
       logo: './img/favicon.png',
@@ -63,11 +73,6 @@ module.exports = (env) => {
         firefox: false,
         windows: false,
         yandex: false,
-      },
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
       },
     }),
     new webpack.ProvidePlugin({
@@ -122,6 +127,7 @@ module.exports = (env) => {
       watchContentBase: true,
       inline: true,
     },
+    mode: env.NODE_ENV === 'development' ? 'development' : 'production',
     devtool: env.NODE_ENV === 'development' ? 'source-map' : false,
     module: {
       rules: [
@@ -132,9 +138,13 @@ module.exports = (env) => {
               loader: 'css-loader',
               options: {
                 minimize: env.NODE_ENV === 'production',
+                sourceMap: env.NODE_ENV === 'development',
               },
             }, {
               loader: 'sass-loader',
+              options: {
+                sourceMap: env.NODE_ENV === 'development',
+              },
             }],
             fallback: 'style-loader',
             publicPath: '../',
@@ -145,12 +155,7 @@ module.exports = (env) => {
           exclude: /node_modules/,
           loader: 'file-loader',
           options: {
-            name: () => {
-              if (env.NODE_ENV === 'development') {
-                return '[name].[ext]';
-              }
-              return '[hash].[ext]';
-            },
+            name: env.NODE_ENV === 'development' ? '[name].[ext]' : '[name].[ext]?[hash]',
             outputPath: './img/',
           },
         },

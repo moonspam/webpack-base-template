@@ -1,8 +1,10 @@
+@charset 'utf-8';
+
 // Import Webfont
 @import url('https://fonts.googleapis.com/css?family=Poor+Story');
 
 // Reset CSS
-@import 'reset.css';
+@import '~compass-mixins/lib/compass/reset';
 
 // Layout
 html, body {
