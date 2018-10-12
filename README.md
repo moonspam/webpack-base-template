@@ -1,7 +1,6 @@
 # webpack base template
 
-webpack.js 기본 템플릿입니다.  
-Demo: <https://rawgit.com/moonspam/webpack-base-template/master/public/dist/index.html>
+webpack.js 기본 템플릿입니다.
 
 ## Packages
 
