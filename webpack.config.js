@@ -8,7 +8,6 @@ const outputPath = './public/dist/';
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 
@@ -20,7 +19,7 @@ const siteInfo = {
   keywords: 'Webpack,Template,HTML,Sass',
   og: {
     locale: 'ko_KR',
-    url: 'https://rawgit.com/moonspam/webpack-base-template/master/public/dist/index.html',
+    url: 'https://cdn.jsdelivr.net/gh/moonspam/webpack-base-template@1.0/master/public/dist/index.html',
     type: 'website',
     img: {
       url: 'https://raw.githubusercontent.com/moonspam/webpack-base-template/master/public/dist/',
@@ -46,7 +45,7 @@ function generateHtmlPlugins(templateDir) {
     },
     hash: true,
     inject: 'body',
-    chunks: ['app'],
+    chunks: 'all',
   }));
 }
 
@@ -61,20 +60,6 @@ module.exports = (env) => {
       },
     ]),
     new ExtractTextPlugin('./css/styles.css'),
-    new FaviconsWebpackPlugin({
-      logo: './img/favicon.png',
-      emitStats: false,
-      icons: {
-        android: false,
-        appleIcon: true,
-        appleStartup: false,
-        coast: false,
-        favicons: true,
-        firefox: false,
-        windows: false,
-        yandex: false,
-      },
-    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -115,10 +100,11 @@ module.exports = (env) => {
   return {
     context: path.resolve(__dirname, sourcePath),
     entry: {
+      vendor: ['jquery'],
       app: './js/index.js',
     },
     output: {
-      filename: './js/[name].bundle.js',
+      filename: './js/[name].js',
       path: path.resolve(__dirname, outputPath),
     },
     devServer: {
@@ -126,9 +112,13 @@ module.exports = (env) => {
       contentBase: path.resolve(__dirname, outputPath),
       watchContentBase: true,
       inline: true,
+      stats: 'errors-only',
     },
     mode: env.NODE_ENV === 'development' ? 'development' : 'production',
     devtool: env.NODE_ENV === 'development' ? 'source-map' : false,
+    performance: {
+      hints: process.env.NODE_ENV === 'production' ? 'warning' : false,
+    },
     module: {
       rules: [
         {
@@ -170,7 +160,7 @@ module.exports = (env) => {
           exclude: /node_modules/,
           loader: 'babel-loader',
           options: {
-            presets: ['babel-preset-env'],
+            presets: ['@babel/preset-env'],
           },
         },
       ],

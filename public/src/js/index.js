@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import '../css/sample.scss';
 
 $(document).ready(() => {
