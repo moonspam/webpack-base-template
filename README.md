@@ -9,7 +9,7 @@ webpack.js 기본 템플릿입니다.
 - Clean for Webpack
 - ESLint Loader
 - Extract Text Plugin
-- Favicons Webpack Plugin
+- ~~Favicons Webpack Plugin~~
 - File Loader
 - HTML Beautify Webpack Plugin
 - HTML Loader
