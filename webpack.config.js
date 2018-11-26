@@ -29,10 +29,6 @@ const siteInfo = {
       alt: 'alternate text',
     },
   },
-  html: [
-    'index',
-    'sub',
-  ],
 };
 
 function generateHtmlPlugins(templateDir) {
