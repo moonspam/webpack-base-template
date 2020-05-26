@@ -1,4 +1,4 @@
-const url = 'https://cdn.jsdelivr.net/gh/moonspam/webpack-base-template@1.0/master/public/dist/';
+const url = 'https://cdn.jsdelivr.net/gh/moonspam/webpack-base-template@1.0/public/dist/';
 
 module.exports = {
   author: 'moonspam',
