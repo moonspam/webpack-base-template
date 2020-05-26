@@ -7,29 +7,11 @@ const outputPath = './public/dist/';
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlBeautifyPlugin = require('html-beautify-webpack-plugin');
 
-// 사이트 기본 정보 입력
-const siteInfo = {
-  author: 'moonspam',
-  title: 'Webpack Base Template',
-  description: 'This is Webpack Base Template',
-  keywords: 'Webpack,Template,HTML,Sass',
-  og: {
-    locale: 'ko_KR',
-    url: 'https://cdn.jsdelivr.net/gh/moonspam/webpack-base-template@1.0/master/public/dist/index.html',
-    type: 'website',
-    img: {
-      url: 'https://raw.githubusercontent.com/moonspam/webpack-base-template/master/public/dist/',
-      type: 'image/jpeg',
-      width: '1280',
-      height: '720',
-      alt: 'alternate text',
-    },
-  },
-};
+const siteInfo = require('./site-info');
 
 function generateHtmlPlugins(templateDir) {
   const templateFiles = fs.readdirSync(templateDir).filter(file => file.substr(-5) === '.html');
@@ -55,7 +37,9 @@ module.exports = (env) => {
         force: true,
       },
     ]),
-    new ExtractTextPlugin('./css/styles.css'),
+    new MiniCssExtractPlugin({
+      filename: './css/style.css',
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -96,8 +80,7 @@ module.exports = (env) => {
   return {
     context: path.resolve(__dirname, sourcePath),
     entry: {
-      vendor: ['jquery'],
-      app: './js/index.js',
+      app: env.NODE_ENV === 'development' ? ['./css/development.scss', './css/style.scss', './js/app.js'] : ['./css/style.scss', './js/app.js'],
     },
     output: {
       filename: './js/[name].js',
@@ -118,23 +101,17 @@ module.exports = (env) => {
     module: {
       rules: [
         {
-          test: /\.scss$/,
-          use: ExtractTextPlugin.extract({
-            use: [{
-              loader: 'css-loader',
+          test: /\.(sa|sc|c)ss$/,
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader,
               options: {
-                minimize: env.NODE_ENV === 'production',
-                sourceMap: env.NODE_ENV === 'development',
+                publicPath: '../',
               },
-            }, {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: env.NODE_ENV === 'development',
-              },
-            }],
-            fallback: 'style-loader',
-            publicPath: '../',
-          }),
+            },
+            'css-loader',
+            'sass-loader',
+          ],
         },
         {
           test: /\.(jpe?g|png|gif)$/,
