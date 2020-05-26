@@ -8,8 +8,7 @@ webpack.js 기본 템플릿입니다.
 - Compass SASS Stylesheets
 - Clean for Webpack
 - ESLint Loader
-- Extract Text Plugin
-- ~~Favicons Webpack Plugin~~
+- Mini Css Extract Plugin
 - File Loader
 - HTML Beautify Webpack Plugin
 - HTML Loader
