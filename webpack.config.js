@@ -118,8 +118,7 @@ module.exports = (env) => {
           exclude: /node_modules/,
           loader: 'file-loader',
           options: {
-            name: env.NODE_ENV === 'development' ? '[name].[ext]' : '[name].[ext]?[hash]',
-            outputPath: './img/',
+            name: env.NODE_ENV === 'development' ? '[path][name].[ext]' : '[path][name].[ext]?[hash]',
           },
         },
         {
