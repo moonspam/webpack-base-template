@@ -7,7 +7,7 @@ module.exports = {
   keywords: 'Webpack,Template,HTML,Sass',
   og: {
     locale: 'ko_KR',
-    url: `${url}index.html`,
+    url: 'https://github.com/moonspam/webpack-base-template',
     type: 'website',
     img: {
       url: `${url}`,
