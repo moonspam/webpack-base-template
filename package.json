@@ -20,7 +20,7 @@
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^1.0.1",
     "compass-mixins": "^0.12.10",
-    "copy-webpack-plugin": "^5.1.1",
+    "copy-webpack-plugin": "^6.1.0",
     "css-loader": "^1.0.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
@@ -40,6 +40,6 @@
   },
   "dependencies": {
     "jquery": "^3.5.0",
-    "npm": "^6.14.6"
+    "npm": "^6.14.8"
   }
 }

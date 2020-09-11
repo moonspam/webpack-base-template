@@ -5,6 +5,12 @@ const fs = require('fs');
 const sourcePath = './public/src/';
 const outputPath = './public/dist/';
 
+const copyStateLibs = fs.existsSync('./public/src/libs') && fs.lstatSync('./src/libs').isDirectory();
+const copyStateFont = fs.existsSync('./public/src/font') && fs.lstatSync('./src/font').isDirectory();
+
+console.log(`CopyWebpackPlugin(libs) : ${copyStateLibs}`);
+console.log(`CopyWebpackPlugin(font) : ${copyStateFont}`);
+
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -31,12 +37,6 @@ module.exports = (env) => {
   // Webpack 플러그인
   const plugins = [
     new CleanWebpackPlugin([outputPath]),
-    new CopyWebpackPlugin([
-      {
-        from: './libs/**/*',
-        force: true,
-      },
-    ]),
     new MiniCssExtractPlugin({
       filename: './css/style.css',
     }),
@@ -76,6 +76,47 @@ module.exports = (env) => {
       ],
     }),
   ];
+
+  function copyPlugin() {
+    let val = [];
+    if (copyStateLibs && !copyStateFont) {
+      val = [
+        new CopyWebpackPlugin({
+          patterns: [
+            {
+              from: './libs/**/*',
+            },
+          ],
+        }),
+      ];
+    }
+    if (!copyStateLibs && copyStateFont) {
+      val = [
+        new CopyWebpackPlugin({
+          patterns: [
+            {
+              from: './font/**/*',
+            },
+          ],
+        }),
+      ];
+    }
+    if (copyStateLibs && copyStateFont) {
+      val = [
+        new CopyWebpackPlugin({
+          patterns: [
+            {
+              from: './libs/**/*',
+            },
+            {
+              from: './font/**/*',
+            },
+          ],
+        }),
+      ];
+    }
+    return val;
+  }
 
   return {
     context: path.resolve(__dirname, sourcePath),
@@ -137,6 +178,6 @@ module.exports = (env) => {
         },
       ],
     },
-    plugins: plugins.concat(htmlList).concat(htmlPlugins),
+    plugins: plugins.concat(copyPlugin()).concat(htmlList).concat(htmlPlugins),
   };
 };
