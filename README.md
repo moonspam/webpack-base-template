@@ -5,9 +5,8 @@ webpack.js 기본 템플릿입니다.
 ## Packages
 
 - Babel Loader
-- Compass SASS Stylesheets
 - Clean for Webpack
-- ESLint Loader
+- ESLint
 - Mini Css Extract Plugin
 - File Loader
 - HTML Beautify Webpack Plugin
