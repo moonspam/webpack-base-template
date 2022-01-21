@@ -28,6 +28,7 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-webpack-plugin": "^2.5.4",
     "file-loader": "^6.2.0",
+    "glob": "^7.2.0",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.1",
     "mini-css-extract-plugin": "^1.6.0",
@@ -36,8 +37,7 @@
     "style-loader": "^2.0.0",
     "webpack": "^5.39.1",
     "webpack-cli": "^4.7.2",
-    "webpack-dev-server": "^4.3.0",
-    "webpack-encoding-plugin": "^0.3.1"
+    "webpack-dev-server": "^4.3.0"
   },
   "dependencies": {
     "@babel/runtime": "^7.14.6",

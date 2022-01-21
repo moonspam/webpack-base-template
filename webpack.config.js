@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
+const glob = require('glob');
 
 const sourcePath = './public/src/';
 const outputPath = './public/dist/';
@@ -22,7 +23,8 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const siteInfo = require('./site-info');
 
 function generateHtmlPlugins(templateDir) {
-  const templateFiles = fs.readdirSync(templateDir).filter((file) => file.substr(-5) === '.html');
+  var templateFiles = glob.sync(`${templateDir}**/*.html`).map((file) => file.replace(templateDir, ''));
+  console.log(templateFiles);
   return templateFiles.map((file) => new HtmlWebpackPlugin({
     template: `./${file}`,
     filename: `${file}`,
@@ -158,7 +160,7 @@ module.exports = (env, argv) => {
               : {
                 loader: MiniCssExtractPlugin.loader,
                 options: {
-                  publicPath: '/',
+                  publicPath: argv.mode === 'development' ? '/' : '../',
                 },
               },
             'css-loader',
