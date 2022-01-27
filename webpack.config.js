@@ -78,6 +78,10 @@ module.exports = (env, argv) => {
         { test: '@@_og_img_width', with: siteInfo.og.img.width },
         { test: '@@_og_img_height', with: siteInfo.og.img.height },
         { test: '@@_og_img_alt', with: siteInfo.og.img.alt },
+        {
+          test: '="/./',
+          with: '="/',
+        },
       ],
     }),
   ];
@@ -131,6 +135,7 @@ module.exports = (env, argv) => {
     output: {
       filename: './js/[name].js',
       path: path.resolve(__dirname, outputPath),
+      publicPath: '/',
     },
     target: ['web', 'es5'],
     devServer: {
