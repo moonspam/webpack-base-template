@@ -18,12 +18,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlBeautifyPlugin = require('@nurminen/html-beautify-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 // 사이트 기본 정보 입력
 const siteInfo = require('./site-info');
 
 function generateHtmlPlugins(templateDir) {
-  var templateFiles = glob.sync(`${templateDir}**/*.html`).map((file) => file.replace(templateDir, ''));
+  var templateFiles = glob.sync(`${templateDir}**/*.html`, { ignore: [`${templateDir}/_template/**/*.html`] }).map((file) => file.replace(templateDir, ''));
   console.log(templateFiles);
   return templateFiles.map((file) => new HtmlWebpackPlugin({
     template: `./${file}`,
@@ -43,7 +44,7 @@ module.exports = (env, argv) => {
       protectWebpackAssets: false,
     }),
     new MiniCssExtractPlugin({
-      filename: './css/style.css',
+      filename: 'css/style.css',
     }),
     new webpack.ProvidePlugin({
       $: 'jquery',
@@ -79,8 +80,8 @@ module.exports = (env, argv) => {
         { test: '@@_og_img_height', with: siteInfo.og.img.height },
         { test: '@@_og_img_alt', with: siteInfo.og.img.alt },
         {
-          test: '="/./',
-          with: '="/',
+          test: 'content="/img',
+          with: argv.mode === 'development' ? 'content="/img' : `content="${siteInfo.og.img.url}img`,
         },
       ],
     }),
@@ -133,7 +134,7 @@ module.exports = (env, argv) => {
       app: argv.mode === 'development' ? ['./css/development.scss', './css/style.scss', './js/app.js'] : ['./css/style.scss', './js/app.js'],
     },
     output: {
-      filename: './js/[name].js',
+      filename: 'js/[name].js',
       path: path.resolve(__dirname, outputPath),
       publicPath: '/',
     },
@@ -151,7 +152,11 @@ module.exports = (env, argv) => {
     mode: argv.mode === 'development' ? 'development' : 'production',
     devtool: argv.mode === 'development' ? 'source-map' : false,
     optimization: {
-      minimize: argv.mode === 'production',
+      minimizer: [
+        new TerserPlugin({
+          extractComments: false,
+        }),
+      ],
     },
     performance: {
       hints: argv.mode === 'production' ? 'warning' : false,
@@ -180,11 +185,9 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(jpe?g|png|gif)$/,
-          exclude: /node_modules/,
-          loader: 'file-loader',
-          options: {
-            name: argv.mode === 'development' ? '[path][name].[ext]' : '[path][name].[ext]?[hash]',
-            esModule: false,
+          type: 'asset/resource',
+          generator: {
+            filename: argv.mode === 'development' ? '[path][name][ext]' : '[path][name][ext]?[hash]',
           },
         },
         {
