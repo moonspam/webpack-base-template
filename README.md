@@ -8,10 +8,10 @@ webpack.js 기본 템플릿입니다.
 - Clean for Webpack
 - ESLint
 - Mini Css Extract Plugin
-- File Loader
 - HTML Beautify Webpack Plugin
 - HTML Loader
 - HTML Webpack Plugin
+- SASS
 - SASS Loader
 - Webpack
 - Webpack CLI
