@@ -14,11 +14,15 @@
 
   <%= require('html-loader!/_template/header.html').default %>
 
-  <h1>한글은 사랑입니다.</h1>
-  <p>웹팩 기본 틀 👍<br><small><a href="/sub/sub.html">서브페이지 이동</a></small></p>
-  <p><img src="<%= require('/img/cat.jpg') %>" alt="Cat" width="300" height="300"></p>
+  <div class="app">
+    <h1>한글은 사랑입니다.</h1>
+    <p>웹팩 기본 틀 👍<br><small><a href="/sub/sub.html">서브페이지 이동</a></small></p>
+    <p><img src="<%= require('/img/cat/cat.jpg') %>" alt="Cat" width="300" height="300"></p>
+  </div>
 
   <%= require('html-loader!/_template/footer.html').default %>
+
+  <script src="<%= require('/libs/js/test.js') %>"></script>
 
 </body>
 

@@ -1,19 +1,11 @@
 const path = require('path');
-const fs = require('fs');
 const webpack = require('webpack');
 const glob = require('glob');
 
 const sourcePath = './public/src/';
 const outputPath = './public/dist/';
 
-const copyStateLibs = fs.existsSync('./public/src/libs') && fs.lstatSync('./src/libs').isDirectory();
-const copyStateFont = fs.existsSync('./public/src/font') && fs.lstatSync('./src/font').isDirectory();
-
-console.log(`CopyWebpackPlugin(libs) : ${copyStateLibs}`);
-console.log(`CopyWebpackPlugin(font) : ${copyStateFont}`);
-
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlBeautifyPlugin = require('@nurminen/html-beautify-webpack-plugin');
@@ -87,47 +79,6 @@ module.exports = (env, argv) => {
     }),
   ];
 
-  function copyPlugin() {
-    let val = [];
-    if (copyStateLibs && !copyStateFont) {
-      val = [
-        new CopyWebpackPlugin({
-          patterns: [
-            {
-              from: './libs/**/*',
-            },
-          ],
-        }),
-      ];
-    }
-    if (!copyStateLibs && copyStateFont) {
-      val = [
-        new CopyWebpackPlugin({
-          patterns: [
-            {
-              from: './font/**/*',
-            },
-          ],
-        }),
-      ];
-    }
-    if (copyStateLibs && copyStateFont) {
-      val = [
-        new CopyWebpackPlugin({
-          patterns: [
-            {
-              from: './libs/**/*',
-            },
-            {
-              from: './font/**/*',
-            },
-          ],
-        }),
-      ];
-    }
-    return val;
-  }
-
   return {
     context: path.resolve(__dirname, sourcePath),
     entry: {
@@ -192,6 +143,16 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.js$/,
+          include: [
+            path.resolve(__dirname, `${sourcePath}/libs`),
+          ],
+          type: 'asset/resource',
+          generator: {
+            filename: argv.mode === 'development' ? '[path][name][ext]' : '[path][name][ext]?[hash]',
+          },
+        },
+        {
+          test: /\.js$/,
           exclude: /node_modules/,
           loader: 'babel-loader',
           options: {
@@ -200,6 +161,6 @@ module.exports = (env, argv) => {
         },
       ],
     },
-    plugins: plugins.concat(copyPlugin()).concat(htmlList).concat(htmlPlugins),
+    plugins: plugins.concat(htmlList).concat(htmlPlugins),
   };
 };
