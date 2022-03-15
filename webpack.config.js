@@ -20,6 +20,9 @@ const HtmlBeautifyPlugin = require('@nurminen/html-beautify-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
+// 이미지 압축
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+
 // 사이트 기본 정보 입력
 const siteInfo = require('./site-info');
 
@@ -157,6 +160,17 @@ module.exports = (env, argv) => {
       minimizer: [
         new TerserPlugin({
           extractComments: false,
+        }),
+        // 이미지 압축
+        new ImageMinimizerPlugin({
+          minimizer: {
+            implementation: ImageMinimizerPlugin.squooshMinify,
+            options: {
+              encodeOptions: {
+                mozjpeg: 'auto',
+              },
+            },
+          },
         }),
       ],
     },
