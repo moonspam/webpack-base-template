@@ -164,6 +164,7 @@ module.exports = (env, argv) => {
         // 이미지 압축
         new ImageMinimizerPlugin({
           minimizer: {
+            filename: '[path][name][ext]',
             implementation: ImageMinimizerPlugin.squooshMinify,
             options: {
               encodeOptions: {
@@ -201,6 +202,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.(jpe?g|png|gif)$/,
+          include: /img/,
           type: 'asset/resource',
           generator: {
             filename: argv.mode === 'development' ? '[path][name][ext]' : '[path][name][ext]?[hash]',
