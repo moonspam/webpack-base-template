@@ -169,10 +169,12 @@ module.exports = (env, argv) => {
         // 이미지 압축
         new ImageMinimizerPlugin({
           minimizer: {
-            implementation: ImageMinimizerPlugin.squooshMinify,
+            implementation: ImageMinimizerPlugin.sharpMinify,
             options: {
               encodeOptions: {
-                mozjpeg: 'auto',
+                jpeg: {
+                  quality: 80,
+                },
               },
             },
           },
